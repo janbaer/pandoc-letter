@@ -1,4 +1,4 @@
-\ProvidesFile{example.lco}
+\ProvidesFile{sender-data.lco}
 
 \setkomavar{fromname}{Jan Baer}
 \setkomavar{fromaddress}{%
