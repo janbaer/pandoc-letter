@@ -1,35 +1,24 @@
-#
-# Author: Jan Baer <info@janbaer.de>
-#
-# ===== Usage ================================================================
-#
-# make build-letter FILE=<name of md file without ext>
-# make build-slides FILE=<name of md file without ext>
-# make view FILE=<name of md file without ext>
-#
-# make clean            Get rid of all intermediate generated files
-#
-# ============================================================================
 MAKEFLAGS += --silent
 
 DOCKER_RUN = docker run --rm -v `pwd`:/tmp janbaer/texlive-pandoc
-PANDOC_LETTER = pandoc -f markdown -t latex --template=scrlttr2.latex
+PANDOC_LETTER = pandoc -s -f markdown -t latex --template="letter"
 
-FILE=example-letter
+OUTPUT_FILE = $(patsubst %.md,%.pdf, $(FILE))
 
 build:
-	${DOCKER_RUN} $(PANDOC_LETTER) $(FILE).md -o $(FILE).pdf
-
-build-tex:
-	${DOCKER_RUN} $(PANDOC_LETTER) $(FILE).md -o $(FILE).tex
+ifeq ($(FILE),)
+	echo "Please pass the markdown file"; exit 1
+else
+	${DOCKER_RUN} $(PANDOC_LETTER) $(FILE) -o $(OUTPUT_FILE)
+endif
 
 clean:
-	rm -f *.aux *.log *.nav *.out *.snm *.toc *.vrbv *.pdf || true
+	rm -rf *.aux *.log *.nav *.out *.snm *.toc *.vrbv *.pdf || true
 
-view: $(FILE).pdf
-	zathura $(FILE).pdf&
+view: $(FILE)
+	zathura $(FILE)&
 
-watch: $(FILE).md
-	watchexec --exts md,latex,lco make
+watch:
+	watchexec --exts md make build FILE=$(FILE)
 
-.PHONY: build build-tex clean view watch
+.PHONY: build clean view watch
