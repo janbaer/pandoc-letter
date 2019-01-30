@@ -9,6 +9,8 @@ The Latex template is using the Komascript class **scrlttr2** which is producing
 
 The template is builtin my Docker image but you can use your own template. For this you've to change the Makefile and set your own template file.
 
+You can find the template here: https://github.com/janbaer/dockerfiles/blob/master/texlive-pandoc/pandoc-templates/letter.latex
+
 ```bash
 make FILE=letter.md
 ```
