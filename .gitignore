@@ -101,3 +101,7 @@ sympy-plots-for-*.tex/
 # xindy
 *.xdy
 
+*.pdf
+*.md
+
+!letter.md

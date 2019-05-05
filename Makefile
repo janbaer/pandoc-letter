@@ -5,6 +5,8 @@ PANDOC_LETTER = pandoc -s -f markdown -t latex --template="letter"
 
 OUTPUT_FILE = $(patsubst %.md,%.pdf, $(FILE))
 
+# Example: make {task} FILE=letter.pdf|md
+
 build:
 ifeq ($(FILE),)
 	echo "Please pass the markdown file"; exit 1
