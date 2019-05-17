@@ -1,7 +1,7 @@
 MAKEFLAGS += --silent
 
 DOCKER_RUN = docker run --rm -v `pwd`:/tmp janbaer/texlive-pandoc
-PANDOC_LETTER = pandoc -s -f markdown -t latex --template="letter"
+PANDOC_LETTER = pandoc -s -f markdown -t latex --template="./letter.latex"
 
 OUTPUT_FILE = $(patsubst %.md,%.pdf, $(FILE))
 
@@ -18,7 +18,7 @@ clean:
 	rm -rf *.aux *.log *.nav *.out *.snm *.toc *.vrbv *.pdf || true
 
 view: $(FILE)
-	zathura $(FILE)&
+	evince $(FILE)&
 
 watch:
 	watchexec --exts md make build FILE=$(FILE)
