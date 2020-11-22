@@ -57,6 +57,7 @@
     }
 
         \opening{$opening$}
+        \enlargethispage{1.5cm}
 
         $body$
 
